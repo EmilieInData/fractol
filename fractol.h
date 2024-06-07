@@ -6,7 +6,7 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 12:26:47 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/07 12:32:43 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:55:06 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,20 @@
 
 typedef struct s_args
 {
-		char    ??
+		double	x;
+		double	y;
 }               t_args;
 
-void    *args_errors(int argc, char **argv);
-void    *errors_four(int argc, char **argv);
-void    *errors_two(int argc, char **argv);
+t_args	*create_struct(t_args *args);
+void	*final_free(t_args *args)
+void    *check_args(int argc, char **argv, t_args *args);
+void    *check_four(char **argv, t_args *args);
+void	*check_two(char **argv);
+void	atoi_errors(char c);
+double	atoi_calcul(const char *str, double r, int *i);
+double	atoi_double(const char *str);
+
+
 
 
 

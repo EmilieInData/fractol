@@ -6,7 +6,7 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:53:39 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/07 12:31:03 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:54:34 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int main (int argc, char **argv)
 {
+	t_args	*args;
+	
+	check_args(argc, argv, args);	
 
-	args_errors(argc, argv);
-	
-	
+	return(0);
 }

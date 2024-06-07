@@ -6,7 +6,7 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:13:47 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/07 15:14:25 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:16:01 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,57 +68,11 @@
 	return (m * r);
 }*/
 
-double  atoi_double(const char *str)
-{
-	int	i;
-	double sign;
-	double	r;
-	double	r2;
-	
-	r = 0;
-	sign = 1;
-	i = 0;
-	while (str[i] == 32 || (str[i] > 8 && str[i] < 14))
-		i++;
-	if (str[i] == 43 || str[i] == 45)
-	{
-		if (str[i] == 45)
-			sign = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		r = (r * 10) + str[i] -'0'; 
-		i++;
-	}
-	if (str[i] == ',')
-	{
-			write(2,"Error, please use \".\" instead of \",\"\n", 37);
-			exit(1);
-	}
-	if (str[i] == '.')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		r2 = (r2 * 10) + str[i] -'0';
-		i++;
-	}
-	if (str[i]< '0' && str[i] > '9') && str[i] != "."
-	{
-		write(2,);
-		exit (1);
-	}
-	while (r2 > 1)
-		r2 = r2 / 10;
-	r = r + r2;
-	return (r * sign);
-}
-
 int main()
 {
 	double r;
 	
-	const char *str = "24.865.625";
+	const char *str = "-248+65854565625";
 	r = atoi_double(str);
 	printf("%f\n", r);
 	return(0);

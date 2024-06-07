@@ -6,54 +6,35 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:22:50 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/07 14:53:42 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:56:12 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-double  atoi_double(char *str)
-{
-	int	i;
-	double sign;
-	double	r;
-	double	r2;
-	
-	r = 0;
-	sign = 1;
-	i = 0;
-	while (str[i] == 32 || str[i] > 8 && str[i] < 14)
-		i++;
-	if (str[i] == 43 || str[i] == 45)
-	{
-		if (str[i] == 45)
-			sign = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		r = (r * 10) + str[i] -'0'; 
-		i++;
-	}
-	if (str[i] == ',')
-	{
-			write(2,"Error, please use \".\" instead of \",\"\n", 37);
-			exit(1);
-	}
-	if (str[i] == '.')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		r2 = (r2 * 10) + str[i] -'0';
-		i++;
-	}
-	while (r2 > 1)
-		r2 = r2 / 10;
-	r = r + r2;
-	return (r * sign);
+t_args	*create_struct(t_args *args)
+{	
+	args = ((t_args *)malloc(sizeof * (t_args)));
+	if (!args)
+		exit(1);
+	args->x = 0;
+	args->y = 0;
+	return (args);	
 }
 
-void    *errors_two(int argc, char **argv)
+void	*final_free(t_args *args)
+{
+	if (args)
+	{
+		if (test)
+			free (test);
+	}
+	free (args);
+	return;
+}
+
+
+void	*check_two(char **argv)
 {
 	if (ft_strncmp(argv[1], "mandelbrot", 10) != 0
 		|| ft_strncmp(argv[1], "Mandelbrot", 10) != 0)
@@ -71,10 +52,10 @@ void    *errors_two(int argc, char **argv)
 			write(2, "Bad request, use Julia or Mandelbrot fractal\n", 45);
 		exit(1);           
 	}
-	return (0);
 }
 
-void    *errors_four(int argc, char **argv)
+
+void    *check_four(char **argv, t_args *args)
 {
 	if (ft_strncmp(argv[1], "julia", 5) != 0
 			 || ft_strncmp(argv[1], "Julia", 5) != 0)
@@ -89,25 +70,21 @@ void    *errors_four(int argc, char **argv)
 	if (ft_strncmp(argv[1], "julia", 5) == 0
 			 || ft_strncmp(argv[1], "Julia", 5) == 0)
 	{     
-		 ne respectent pas le tableau de  taille avec decimal (DOUBLE) atoi double
-		// faire fonction (checker qu´íl y a bien quúne seule virgule, gerer le signe moins et plus, attention au 0, ni moins ni plus devant (pb parcing push swap))
-		si fonction ok return 0 sinon exit et message d erreurs  
-		atoi_double(argv[2]);
-		atoi_double(argv[3]);	
+		args->x = atoi_double(argv[2]);
+		args->y = atoi_double(argv[3]);	
 	}
 }
 
-void    *args_errors(int argc, char **argv)
+void    *check_args(int argc, char **argv, t_args *args)
 {
-	if (argc == 2)
-		errors_two(argc, argv);        
-	if (argc == 4)
-		errors_four(argc, argv);    
-	else
+	if (argc != 2 && argc != 4)
 	{
 		write(2, "Bad request, not enough or too much arguments\n", 46);
 		exit(1);
-	}	
-	return;
+	}
+	args = create_struct(args);
+	if (argc == 2)
+		check_two(argv);        
+	if (argc == 4)
+		check_four(argv, args);    
 }
-
