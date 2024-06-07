@@ -6,7 +6,7 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:53:39 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/06 17:54:20 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/07 12:31:03 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int main (int argc, char **argv)
 {
 
-//gerer les erreurs
-    
+	args_errors(argc, argv);
+	
+	
 }
