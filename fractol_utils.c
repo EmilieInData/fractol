@@ -6,85 +6,111 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:22:50 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/07 17:56:12 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/10 20:06:30 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-t_args	*create_struct(t_args *args)
+void	*create_struct(t_fractal *fractal, t_img *image, char *name)
 {	
-	args = ((t_args *)malloc(sizeof * (t_args)));
-	if (!args)
-		exit(1);
-	args->x = 0;
-	args->y = 0;
-	return (args);	
+	fractal = ((t_fractal *)malloc(sizeof * (t_fractal)));
+	if (!fractal)
+		exit(EXIT_FAILURE); // ou fonction malloc error?
+	fractal->init = mlx_init;
+	//si erreur malloc error & free && fermer láffichage (mlx destroy display)
+	fractal->window = mlx_new_window(fractal->init, WIDTH, HEIGHT, name);	
+	//si erreur malloc error & free && fermer láffichage (mlx destroy display) && fermer la fenetre
+	image->img_add = mlx_new_image(fractal->init, WIDTH, HEIGHT);
+	//si erreur malloc error & free && fermer láffichage (mlx destroy display) && fermer la fenetre
+	image->pix_add = mlx_get_data_addr(image->img_add, image->bit_pix, image->length_line, image->endian);
+	//image->bit_pix = ;
+	//image->length_line = ;
+	//image->endian = ;
+
 }
 
 void	*final_free(t_args *args)
 {
 	if (args)
 	{
-		if (test)
-			free (test);
+		//if (test)
+		//	free (test);
 	}
 	free (args);
 	return;
 }
 
 
-void	*check_two(char **argv)
+int	check_two(char **argv)
 {
 	if (ft_strncmp(argv[1], "mandelbrot", 10) != 0
-		|| ft_strncmp(argv[1], "Mandelbrot", 10) != 0)
+		|| ft_strncmp(argv[1], "Mandelbrot", 10) != 0 // check wth Mandelbrotttt Ou juliaaaa?
+		|| ft_strncmp(argv[1], "MANDELBROT", 10) != 0)
 	{
 		if (ft_strncmp(argv[1], "mandelbrot", 5) == 0
-			|| ft_strncmp(argv[1], "Mandelbrot", 5) == 0)
-			return (write(2, "Do you mean \"Mandelbrot\"?\n", 26));
+			|| ft_strncmp(argv[1], "Mandelbrot", 5) == 0
+			|| ft_strncmp(argv[1], "MANDELBROT", 5) == 0)
+			write(STDERR_FILENO, "Do you mean \"Mandelbrot\"?\n", 26);
 		if (ft_strncmp(argv[1], "mendelbrot", 5) == 0
-			|| ft_strncmp(argv[1], "Mendelbrot", 5) == 0)
-			return (write(2, "Do you mean \"Mandelbrot\"?\n", 26));
-		if (ft_strncmp(argv[1], "Julia", 3) == 0
-			|| ft_strncmp(argv[1], "julia", 3) == 0)
-			return (write(2, "Miss first point size to Julia's form\n", 38));
+			|| ft_strncmp(argv[1], "Mendelbrot", 5) == 0
+			|| ft_strncmp(argv[1], "MENDELBROT", 5) == 0)
+			write(STDERR_FILENO, "Do you mean \"Mandelbrot\"?\n", 26);
+		if (ft_strncmp(argv[1], "Julia", 5) == 0
+			|| ft_strncmp(argv[1], "julia", 5) == 0
+			|| ft_strncmp(argv[1], "JULIA", 5) == 0)
+			write(STDERR_FILENO, "Miss first points sizes to Julia's form\n", 40);
 		else
-			write(2, "Bad request, use Julia or Mandelbrot fractal\n", 45);
-		exit(1);           
+			write(STDERR_FILENO, "Bad request, use Julia or Mandelbrot fractal\n", 45);
+		exit(EXIT_FAILURE);           
 	}
+	return (0);
 }
 
 
-void    *check_four(char **argv, t_args *args)
+int    check_four(char **argv)
 {
 	if (ft_strncmp(argv[1], "julia", 5) != 0
-			 || ft_strncmp(argv[1], "Julia", 5) != 0)
+			 || ft_strncmp(argv[1], "Julia", 5) != 0
+			 || ft_strncmp(argv[1], "JULIA", 5) != 0)
 	{
-		if (ft_strncmp(argv[1], "julia", 3 == 0
-			|| ft_strncmp(argv[1], "Julia", 3) == 0))
-			return (write(2, "Do you mean \"Julia\"?\n", 21));
+		if (ft_strncmp(argv[1], "julia", 3) == 0
+			|| ft_strncmp(argv[1], "Julia", 3) == 0
+			|| ft_strncmp(argv[1], "JULIA", 3) == 0)
+			write(STDERR_FILENO, "Do you mean \"Julia\"?\n", 21);
 		else
-			write(2, "Bad request, use Julia or Mandelbrot fractal\n", 45);
-		exit(1);
+			write(STDERR_FILENO, "Bad request, use Julia or Mandelbrot fractal\n", 45);
+		exit(EXIT_FAILURE);
 	}
-	if (ft_strncmp(argv[1], "julia", 5) == 0
-			 || ft_strncmp(argv[1], "Julia", 5) == 0)
+	/*if (ft_strncmp(argv[1], "julia", 5) == 0
+			 || ft_strncmp(argv[1], "Julia", 5) == 0
+		 	 || ft_strncmp(argv[1], "JULIA", 5) == 0)
 	{     
 		args->x = atoi_double(argv[2]);
 		args->y = atoi_double(argv[3]);	
-	}
+	}*/
+	return (0);
 }
 
-void    *check_args(int argc, char **argv, t_args *args)
+void    *check_args(int argc, char **argv)
 {
 	if (argc != 2 && argc != 4)
 	{
-		write(2, "Bad request, not enough or too much arguments\n", 46);
-		exit(1);
+		write(STDERR_FILENO, "Bad request, not enough or too much arguments\n", 46);
+		exit(EXIT_FAILURE);
 	}
-	args = create_struct(args);
 	if (argc == 2)
 		check_two(argv);        
 	if (argc == 4)
-		check_four(argv, args);    
+		check_four(argv);    
 }
+
+/*t_args	*create_struct(t_args *args)
+{	
+	args = ((t_args *)malloc(sizeof * (t_args)));
+	if (!args)
+		exit(EXIT_FAILURE);
+	args->x = 0;
+	args->y = 0;
+	return (args);	
+}*/

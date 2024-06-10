@@ -6,9 +6,11 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:32:22 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/07 16:56:14 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:54:31 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "fractol.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,12 +20,12 @@ void	atoi_errors(char c)
 {
 	if (c == ',')
 	{
-		write(2,"Error, please use \".\" instead of \",\"\n", 37);
+		write(STDERR_FILENO,"Error, please use \".\" instead of \",\"\n", 37);
 		exit(1);
 	}
 	if (c && (c < '0' || c > '9'))
 	{
-		write(2,"Error, please use floating-point numbers only\n", 46);
+		write(STDERR_FILENO,"Error, please use floating-point numbers only\n", 46);
 		exit (1);
 	}
 	return;
@@ -67,6 +69,7 @@ double  atoi_double(const char *str)
 		r2 = r2 / 10;
 	return ((r + r2) * sign);
 }
+//gerer si le nombre est 2.00000003 et qu´íl arrrondi a 2?
 
 /*int main()
 {
