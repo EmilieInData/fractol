@@ -6,7 +6,7 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:22:50 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/10 20:06:30 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:00:40 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,44 @@ void	*create_struct(t_fractal *fractal, t_img *image, char *name)
 {	
 	fractal = ((t_fractal *)malloc(sizeof * (t_fractal)));
 	if (!fractal)
-		exit(EXIT_FAILURE); // ou fonction malloc error?
+		exit(EXIT_FAILURE);
 	fractal->init = mlx_init;
-	//si erreur malloc error & free && fermer láffichage (mlx destroy display)
+	if (!fractal->init)
+	{
+		free (fractal);
+		exit(EXIT_FAILURE);
+	}
 	fractal->window = mlx_new_window(fractal->init, WIDTH, HEIGHT, name);	
-	//si erreur malloc error & free && fermer láffichage (mlx destroy display) && fermer la fenetre
+	if (!fractal->window)
+	{
+		mlx_destroy_display(fractal->init);
+		free(fractal->init);
+		free(fractal);
+		exit(EXIT_FAILURE);		
+	}
 	image->img_add = mlx_new_image(fractal->init, WIDTH, HEIGHT);
-	//si erreur malloc error & free && fermer láffichage (mlx destroy display) && fermer la fenetre
+	if (!image->img_add)
+	{
+		mlx_destroy_window(fractal->init, fractal->window);	
+		mlx_destroy_display(fractal->init);
+		free(fractal->init);
+		free(fractal);		
+		exit(EXIT_FAILURE);
+	}
 	image->pix_add = mlx_get_data_addr(image->img_add, image->bit_pix, image->length_line, image->endian);
-	//image->bit_pix = ;
-	//image->length_line = ;
-	//image->endian = ;
-
+	//voir si ok avec ces noms de variables
 }
 
-void	*final_free(t_args *args)
+/*void	*final_free(t_num *num)
 {
-	if (args)
+	if (num)
 	{
 		//if (test)
 		//	free (test);
 	}
-	free (args);
+	free (num);
 	return;
-}
+}*/
 
 
 int	check_two(char **argv)

@@ -6,7 +6,7 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 12:26:47 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/10 19:50:31 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:00:05 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@
 #define WIDTH	800
 #define HEIGHT	800
 
-typedef struct s_args 
+typedef struct s_num 
 {
 	double	x; //real
 	double	y; // imaginary
-}               t_args;
+}               t_num;
 
 typedef struct s_img // pixel buffer
 {
@@ -51,7 +51,7 @@ typedef struct s_fractal
 }				t_fractal;
 
 //t_args	*create_struct(t_args *args);
-void	*final_free(t_args *args);
+//void	*final_free(t_num *num);
 void    *check_args(int argc, char **argv);
 int		check_four(char **argv);
 int		check_two(char **argv);

@@ -1,28 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   fractol_implementation.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/06 17:53:39 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/11 18:00:56 by esellier         ###   ########.fr       */
+/*   Created: 2024/06/11 15:58:22 by esellier          #+#    #+#             */
+/*   Updated: 2024/06/11 15:58:48 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-int main (int argc, char **argv)
-{
-	//t_num	*num;
-	t_fractal	*fractal;
-	t_img		*image;
-	
-	check_args(argc, argv);
-	create_struct(fractal, image, argv[1]);
-	//creation fractal;
-	// mlx loop;
-	
-	return (0);
-} 
 
