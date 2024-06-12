@@ -6,7 +6,7 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 12:26:47 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/11 18:00:05 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/12 20:48:06 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,8 @@ int		check_two(char **argv);
 void	atoi_errors(char c);
 double	atoi_calcul(const char *str, double r, int *i);
 double	atoi_double(const char *str);
-
-
-
-
+double  window_resize(double imaginary, double old_max, double new_min, double new_max);
+void	*create_struct(t_fractal *fractal, t_img *image, char *name);
 
 
 #endif

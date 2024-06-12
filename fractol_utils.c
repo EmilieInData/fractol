@@ -6,7 +6,7 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:22:50 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/11 18:00:40 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/12 20:55:33 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*create_struct(t_fractal *fractal, t_img *image, char *name)
 {	
-	fractal = ((t_fractal *)malloc(sizeof * (t_fractal)));
+	fractal = ((t_fractal *)malloc(sizeof (t_fractal)));
 	if (!fractal)
 		exit(EXIT_FAILURE);
 	fractal->init = mlx_init;
@@ -40,8 +40,9 @@ void	*create_struct(t_fractal *fractal, t_img *image, char *name)
 		free(fractal);		
 		exit(EXIT_FAILURE);
 	}
-	image->pix_add = mlx_get_data_addr(image->img_add, image->bit_pix, image->length_line, image->endian);
+	image->pix_add = mlx_get_data_addr(image->img_add, &image->bit_pix, &image->length_line, &image->endian);
 	//voir si ok avec ces noms de variables
+	return (0);
 }
 
 /*void	*final_free(t_num *num)
@@ -116,7 +117,8 @@ void    *check_args(int argc, char **argv)
 	if (argc == 2)
 		check_two(argv);        
 	if (argc == 4)
-		check_four(argv);    
+		check_four(argv);
+	return (0);
 }
 
 /*t_args	*create_struct(t_args *args)

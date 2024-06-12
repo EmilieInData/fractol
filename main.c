@@ -6,7 +6,7 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:53:39 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/11 18:00:56 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/12 20:48:55 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int main (int argc, char **argv)
 	t_fractal	*fractal;
 	t_img		*image;
 	
+	fractal = NULL;
+	image = NULL;
 	check_args(argc, argv);
 	create_struct(fractal, image, argv[1]);
 	//creation fractal;
@@ -26,3 +28,4 @@ int main (int argc, char **argv)
 	return (0);
 } 
 
+// voir pour creer des fonctions pour les erreurs et fermeture d'image?
