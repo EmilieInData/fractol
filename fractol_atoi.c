@@ -6,7 +6,7 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:32:22 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/10 17:54:31 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:13:37 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ double  atoi_double(const char *str)
 	return ((r + r2) * sign);
 }
 //gerer si le nombre est 2.00000003 et qu´íl arrrondi a 2?
+// checker avec des points et des virgules
 
 /*int main()
 {

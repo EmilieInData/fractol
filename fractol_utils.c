@@ -6,62 +6,17 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:22:50 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/12 20:55:33 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/13 19:30:56 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	*create_struct(t_fractal *fractal, t_img *image, char *name)
-{	
-	fractal = ((t_fractal *)malloc(sizeof (t_fractal)));
-	if (!fractal)
-		exit(EXIT_FAILURE);
-	fractal->init = mlx_init;
-	if (!fractal->init)
-	{
-		free (fractal);
-		exit(EXIT_FAILURE);
-	}
-	fractal->window = mlx_new_window(fractal->init, WIDTH, HEIGHT, name);	
-	if (!fractal->window)
-	{
-		mlx_destroy_display(fractal->init);
-		free(fractal->init);
-		free(fractal);
-		exit(EXIT_FAILURE);		
-	}
-	image->img_add = mlx_new_image(fractal->init, WIDTH, HEIGHT);
-	if (!image->img_add)
-	{
-		mlx_destroy_window(fractal->init, fractal->window);	
-		mlx_destroy_display(fractal->init);
-		free(fractal->init);
-		free(fractal);		
-		exit(EXIT_FAILURE);
-	}
-	image->pix_add = mlx_get_data_addr(image->img_add, &image->bit_pix, &image->length_line, &image->endian);
-	//voir si ok avec ces noms de variables
-	return (0);
-}
-
-/*void	*final_free(t_num *num)
-{
-	if (num)
-	{
-		//if (test)
-		//	free (test);
-	}
-	free (num);
-	return;
-}*/
-
-
 int	check_two(char **argv)
 {
 	if (ft_strncmp(argv[1], "mandelbrot", 10) != 0
-		|| ft_strncmp(argv[1], "Mandelbrot", 10) != 0 // check wth Mandelbrotttt Ou juliaaaa?
-		|| ft_strncmp(argv[1], "MANDELBROT", 10) != 0)
+		&& ft_strncmp(argv[1], "Mandelbrot", 10) != 0 // check wth Mandelbrotttt Ou juliaaaa?
+		&& ft_strncmp(argv[1], "MANDELBROT", 10) != 0)
 	{
 		if (ft_strncmp(argv[1], "mandelbrot", 5) == 0
 			|| ft_strncmp(argv[1], "Mandelbrot", 5) == 0
@@ -82,12 +37,11 @@ int	check_two(char **argv)
 	return (0);
 }
 
-
 int    check_four(char **argv)
 {
 	if (ft_strncmp(argv[1], "julia", 5) != 0
-			 || ft_strncmp(argv[1], "Julia", 5) != 0
-			 || ft_strncmp(argv[1], "JULIA", 5) != 0)
+			 && ft_strncmp(argv[1], "Julia", 5) != 0
+			 && ft_strncmp(argv[1], "JULIA", 5) != 0)
 	{
 		if (ft_strncmp(argv[1], "julia", 3) == 0
 			|| ft_strncmp(argv[1], "Julia", 3) == 0
@@ -121,12 +75,35 @@ void    *check_args(int argc, char **argv)
 	return (0);
 }
 
-/*t_args	*create_struct(t_args *args)
+void	*create_structs(t_data **data)
 {	
-	args = ((t_args *)malloc(sizeof * (t_args)));
-	if (!args)
+	*data = ((t_data *)malloc(sizeof(t_data)));
+	if (!*data)
 		exit(EXIT_FAILURE);
-	args->x = 0;
-	args->y = 0;
-	return (args);	
-}*/
+	(*data)->image = ((t_img *)malloc(sizeof(t_img)));
+	if (!(*data)->image)
+	{
+		free(*data);
+		exit(EXIT_FAILURE);
+	}
+	(*data)->outside_fractal = 4;
+	(*data)-> def_iterations = 42;
+	return (0);	
+}
+
+void	*data_free(t_data *data)
+{
+	if (data)
+	{
+		if (data->init)
+			mlx_destroy_display(data->init);
+		if (data->window)
+			mlx_destroy_window(data->init, data->window);	
+		//if (data->image->pix_add)
+		//	mlx_destroy_image(data->init, data->inage->img_add);
+		if (data->image)
+			free (data->image);
+		free (data);
+	}
+	exit (EXIT_FAILURE);
+}

@@ -6,7 +6,7 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:53:39 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/12 20:48:55 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/13 20:01:35 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 int main (int argc, char **argv)
 {
-	//t_num	*num;
-	t_fractal	*fractal;
-	t_img		*image;
+	t_data	*data;
 	
-	fractal = NULL;
-	image = NULL;
+	//data = NULL;
 	check_args(argc, argv);
-	create_struct(fractal, image, argv[1]);
-	//creation fractal;
+	create_structs(&data);
+	implementation_struct(data, argv[1]);
+	create_fractal(data);
 	// mlx loop;
+	//les hooks pour fermer les fenetres et bonus
 	
 	return (0);
 } 

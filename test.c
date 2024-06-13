@@ -6,7 +6,7 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:13:47 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/07 16:16:01 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/13 18:11:46 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@
 		return (2);
 	mlx_loop(ptr);
 	return(0);
-}*/
+} */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -40,35 +41,8 @@
 	return (0);
 }*/
 
-/*double	ft_atoi(const char *str)
-{
-	int	i;
-	double	r;
-	double	m;
 
-	i = 0;
-	m = 1;
-	while ((str[i] >= 9 && str[i] <= 13) || (str[i] == ' '))
-		i++;
-	if (str[i] == 45)
-	{
-		m = -1;
-		i++;
-	}
-	if (str[i] == 43 && m != -1)
-	{
-		i++;
-	}
-	r = 0;
-	while (str[i] >= 48 && str[i] <= 57)
-	{
-		r = r * 10 + (str[i] - '0');
-		i++;
-	}
-	return (m * r);
-}*/
-
-int main()
+/*int main()
 {
 	double r;
 	
@@ -76,5 +50,24 @@ int main()
 	r = atoi_double(str);
 	printf("%f\n", r);
 	return(0);
+}*/
+
+double  window_resize(double imaginary, double old_max, double new_min, double new_max)
+{
+	double old_min;
+	
+	old_min = 0;
+	return ((new_max - new_min) * (imaginary - old_min) / (old_max - old_min) + new_min);
 }
 
+int main()	
+{
+	int i = 0;
+	
+	while (i < 800)
+	{
+		printf("%d->%f\n", i , window_resize(i, 799, -2 , 2));
+		i++;
+	}
+	return (0);
+}

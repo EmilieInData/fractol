@@ -5,12 +5,12 @@ SRC =   fractol_utils.c \
 		fractol_implementation.c \
 		main.c
 		
-LIB_A = libft/libft.a
-MLX_A = mlx/libmlx_Linux.a
-LIB_FLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+#LIB_A = libft/libft.a
+#MLX_A = mlx/libmlx_Linux.a./fr	
+LIB_FLAGS = -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -Llibft -lft
 
 CC = gcc
-FLAGS = -Wall -Wextra -Werror #-O3
+FLAGS = -Wall -Wextra -Werror -g -fsanitize=address #-O3
 
 OBJ = $(SRC:.c=.o) 
 
@@ -22,8 +22,8 @@ all :
 %.o : %.c Makefile fractol.h
 	$(CC) $(FLAGS) -I./libft -I./mlx -o $@ -c $<
 
-$(NAME) : $(OBJ) $(LIB_A) $(MLX_A) Makefile fractol.h
-	$(CC) $(FLAGS) $(LIB_A) $(MLX_A) $(OBJ) -o $(NAME) $(LIB_FLAGS)
+$(NAME) : $(OBJ) Makefile fractol.h
+	$(CC) $(FLAGS) $(OBJ) -o $(NAME) $(LIB_FLAGS)
 
 clean :
 	make clean -C libft -C mlx
