@@ -3,6 +3,7 @@ NAME = fractol
 SRC =   fractol_utils.c \
 		fractol_atoi.c \
 		fractol_implementation.c \
+		fractol_init.c \
 		main.c
 		
 #LIB_A = libft/libft.a
@@ -26,14 +27,17 @@ $(NAME) : $(OBJ) Makefile fractol.h
 	$(CC) $(FLAGS) $(OBJ) -o $(NAME) $(LIB_FLAGS)
 
 clean :
-	make clean -C libft -C mlx
+	make clean -C libft
+	make clean -C mlx
 	rm -f *.o
 
 fclean : clean
-	make fclean -C libft -C mlx
+	make fclean -C libft
+	make fclean -C mlx
 	rm -f $(NAME)
 
 re : fclean all
-	make -C re libft mlx
+	make re -C libft
+	make re -C mlx
 
 .PHONY: all clean fclean re

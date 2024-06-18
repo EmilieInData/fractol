@@ -6,7 +6,7 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 12:26:47 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/13 20:10:32 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:59:32 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <stdlib.h>
 # include <float.h>
 # include <math.h>
+# include <X11/Xlib.h>
+# include <X11/keysym.h>
 
 #define WIDTH	800
 #define HEIGHT	800
@@ -49,6 +51,11 @@ typedef struct s_data
 	//hooks variables
 	double	outside_fractal; // hypotenuse
 	int		def_iterations;
+	double	move_x;
+	double	move_y;
+	double	zoom;
+	double	julia_x;
+	double	julia_y;
 }				t_data;
 
 #define WHITE			0XFFFFFF
@@ -66,16 +73,21 @@ typedef struct s_data
 
 void	*create_structs(t_data **data);
 void	*data_free(t_data *data);
-void    *check_args(int argc, char **argv);
-int		check_four(char **argv);
+void    *check_args(int argc, char **argv, t_data *data);
+int		check_four(char **argv, t_data *data);
 int		check_two(char **argv);
 void	atoi_errors(char c);
 double	atoi_calcul(const char *str, double r, int *i);
 double	atoi_double(const char *str);
 double  window_resize(double imaginary, double old_max, double new_min, double new_max);
 void	*implementation_struct(t_data *data, char *name);
-t_num	calcul(t_num n1, t_num n2);
+t_num	calcul_m(t_num n1, t_num n2);
 void	*create_fractal(t_data *data);
 void	manage_pixel(t_data *data, int x, int y);
+void    init_events(t_data *data);
+int		do_key(int keysym, t_data *data);
+int 	do_mouse(int button, int x, int y, t_data *data);
+int		close_escape(t_data *data);
+
 
 #endif

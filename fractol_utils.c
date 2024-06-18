@@ -6,7 +6,7 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:22:50 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/13 19:30:56 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:59:07 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	check_two(char **argv)
 	return (0);
 }
 
-int    check_four(char **argv)
+int    check_four(char **argv, t_data *data)
 {
 	if (ft_strncmp(argv[1], "julia", 5) != 0
 			 && ft_strncmp(argv[1], "Julia", 5) != 0
@@ -54,24 +54,24 @@ int    check_four(char **argv)
 	/*if (ft_strncmp(argv[1], "julia", 5) == 0
 			 || ft_strncmp(argv[1], "Julia", 5) == 0
 		 	 || ft_strncmp(argv[1], "JULIA", 5) == 0)
-	{     
-		args->x = atoi_double(argv[2]);
-		args->y = atoi_double(argv[3]);	
-	}*/
+	{ */    
+		data->julia_x = atoi_double(argv[2]);
+		data->julia_y = atoi_double(argv[3]);	
+	//}
 	return (0);
 }
 
-void    *check_args(int argc, char **argv)
+void    *check_args(int argc, char **argv, t_data *data)
 {
 	if (argc != 2 && argc != 4)
 	{
-		write(STDERR_FILENO, "Bad request, not enough or too much arguments\n", 46);
+		write(STDERR_FILENO, "Bad request, not enough or too much arguments,\nuse Julia or Mandelbrot set!\n", 76);
 		exit(EXIT_FAILURE);
 	}
 	if (argc == 2)
 		check_two(argv);        
 	if (argc == 4)
-		check_four(argv);
+		check_four(argv, data);
 	return (0);
 }
 
@@ -87,7 +87,10 @@ void	*create_structs(t_data **data)
 		exit(EXIT_FAILURE);
 	}
 	(*data)->outside_fractal = 4;
-	(*data)-> def_iterations = 42;
+	(*data)-> def_iterations = 40;
+	(*data)-> move_x = 0.00;
+	(*data)-> move_y = 0.00;
+	(*data)-> zoom = 1.00;
 	return (0);	
 }
 
@@ -95,12 +98,12 @@ void	*data_free(t_data *data)
 {
 	if (data)
 	{
+		if (data->image->img_add)
+			mlx_destroy_image(data->init, data->image->img_add);
+		if (data->window)
+			mlx_destroy_window(data->init, data->window);
 		if (data->init)
 			mlx_destroy_display(data->init);
-		if (data->window)
-			mlx_destroy_window(data->init, data->window);	
-		//if (data->image->pix_add)
-		//	mlx_destroy_image(data->init, data->inage->img_add);
 		if (data->image)
 			free (data->image);
 		free (data);

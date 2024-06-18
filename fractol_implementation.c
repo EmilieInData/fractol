@@ -6,7 +6,7 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:58:22 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/13 20:10:50 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:38:45 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,29 @@ double  window_resize(double imaginary, double old_max, double new_min, double n
 void	manage_pixel(t_data *data, int x, int y)
 {
 	int		i;
-	int	color;
+	//int	color;
+	
 	t_num	z;
 	t_num	c;
 
+	i = 0;
 	z.x = 0.00;
 	z.y = 0.00;
-	
-	c.x = window_resize(x, WIDTH, -2, 2);
-	c.y = window_resize(y, HEIGHT, 2, -2);
-
+	c.x = window_resize(x, WIDTH, -2, 2) * data->zoom + data->move_x;
+	c.y = window_resize(y, HEIGHT, 2, -2) * data->zoom + data->move_y;
 	while (i < data->def_iterations)
 	{
-		z = calcul(z, c);
+		z = calcul_m(z, c);
 		if ((z.x * z.x) + (z.y * z.y) > data->outside_fractal)
 		{
-			color= window_resize(i, data->def_iterations, BLACK, WHITE);
-			mlx_pixel_put(data->init, data->window, x, y, color);
+			//color= window_resize(i, data->def_iterations, BLACK, WHITE);
+			mlx_pixel_put(data->init, data->window, x, y, PASTEL_BLUE);
 			return;
 		}
 		i++;
 	}
-	//dans la fractal
 	mlx_pixel_put(data->init, data->window, x, y, PASTEL_YELLOW);
+	//dans la fractal
 }
 
 void	*create_fractal(t_data *data)
@@ -64,7 +64,7 @@ void	*create_fractal(t_data *data)
 		}
 		y++;
 	}
-	mlx_put_image_to_window(data->init, data->window, data->image->img_add, 0, 0);
+	//mlx_put_image_to_window(data->init, data->window, data->image->img_add, 0, 0);
 	return (0);	
 }
 
@@ -73,37 +73,19 @@ void	*implementation_struct(t_data *data, char *name)
 	data->init = mlx_init();
 	if (!data->init)
 		data_free(data);
-	/*{
-		free (data->image);
-		free (data);
-		exit(EXIT_FAILURE);
-	}*/
 	data->window = mlx_new_window(data->init, WIDTH, HEIGHT, name);	
 	if (!data->window)
 		data_free(data);
-	/*{
-		mlx_destroy_display(data->init);
-		free (data->image);
-		free (data);
-		exit(EXIT_FAILURE);		
-	}*/
 	data->image->img_add = mlx_new_image(data->init, WIDTH, HEIGHT);
 	if (!data->image->img_add)
 		data_free(data);
-	/*{
-		mlx_destroy_window(data->init, data->window);	
-		mlx_destroy_display(data->init);
-		free (data->image);	
-		free (data);
-		exit(EXIT_FAILURE);
-	}*/
 	data->image->pix_add = mlx_get_data_addr(data->image, &data->image->bit_pix, &data->image->length_line, &data->image->endian);
 	//rempli les ints de la struc IMG et renvoie l'adresse memoire du pixel en cours
-	mlx_loop(data->init);
+	init_events(data); 
 	return (0);
 }
 
-t_num	calcul(t_num n1, t_num n2)
+t_num	calcul_m(t_num n1, t_num n2)
 {
 	t_num	r1;
 	t_num	r2;
