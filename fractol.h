@@ -6,7 +6,7 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 12:26:47 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/18 19:59:32 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:38:31 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_img // pixel buffer
 
 typedef struct s_data
 {
-	//mlx
+	char	*name;
 	void	*init;
 	void	*window;
 	t_img	*image;
@@ -59,7 +59,7 @@ typedef struct s_data
 }				t_data;
 
 #define WHITE			0XFFFFFF
-#define BLACK			0x000000
+#define BLACK			0x0000
 #define PASTEL_PINK		0xFFD1DC
 #define PASTEL_BLUE		0xAEC6CF
 #define PASTEL_GREEN	0x77DD77
@@ -71,10 +71,10 @@ typedef struct s_data
 #define PASTEL_BROWN    0xCFCFC4
 #define PASTEL_GRAY     0xD3D3D3
 
-void	*create_structs(t_data **data);
+void	*create_structs(t_data **data, int argc, char **argv);
 void	*data_free(t_data *data);
-void    *check_args(int argc, char **argv, t_data *data);
-int		check_four(char **argv, t_data *data);
+void    *check_args(int argc, char **argv);
+int		check_four(char **argv);
 int		check_two(char **argv);
 void	atoi_errors(char c);
 double	atoi_calcul(const char *str, double r, int *i);
@@ -83,11 +83,12 @@ double  window_resize(double imaginary, double old_max, double new_min, double n
 void	*implementation_struct(t_data *data, char *name);
 t_num	calcul_m(t_num n1, t_num n2);
 void	*create_fractal(t_data *data);
-void	manage_pixel(t_data *data, int x, int y);
+void	man_manage_pixel(t_data *data, int x, int y);
 void    init_events(t_data *data);
 int		do_key(int keysym, t_data *data);
 int 	do_mouse(int button, int x, int y, t_data *data);
 int		close_escape(t_data *data);
-
+void	jul_manage_pixel(t_data *data, int x, int y);
+void    put_pixel_image(t_img *image, int x, int y, int color);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:28:50 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/18 20:31:05 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:43:34 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,29 @@ int do_mouse(int button, int x, int y, t_data *data)
     
     }
 }*/
+/*static int	mouse_event(int mouse_code, int x, int y, t_fractol *f)
+{
+	double	p_x;
+	double	p_y;
+	double	zoom_factor;
+
+	p_x = ((double)x * 4 / WIDTH - 2) * f->zoom + f->shift.x;
+	p_y = ((double)y * 4 / HEIGHT - 2) * f->zoom + f->shift.y;
+	if (mouse_code == ON_MOUSEDOWN)
+	{
+		zoom_factor = 1.1;
+		f->shift.x += (p_x - f->shift.x) * (1 - zoom_factor);
+		f->shift.y += (p_y - f->shift.y) * (1 - zoom_factor);
+		f->zoom *= zoom_factor;
+	}
+	if (mouse_code == ON_MOUSEUP)
+	{
+		zoom_factor = 0.9;
+		f->shift.x += (p_x - f->shift.x) * (1 - zoom_factor);
+		f->shift.y += (p_y - f->shift.y) * (1 - zoom_factor);
+		f->zoom *= zoom_factor;
+	}
+	render(f);*/
 
 void    init_events(t_data *data)
 {

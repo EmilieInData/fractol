@@ -4,6 +4,7 @@ SRC =   fractol_utils.c \
 		fractol_atoi.c \
 		fractol_implementation.c \
 		fractol_init.c \
+		fractol_dif_fractals.c \
 		main.c
 		
 #LIB_A = libft/libft.a

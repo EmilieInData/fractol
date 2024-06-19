@@ -6,7 +6,7 @@
 /*   By: esellier <esellier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:53:39 by esellier          #+#    #+#             */
-/*   Updated: 2024/06/18 20:36:29 by esellier         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:15:20 by esellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@ int main (int argc, char **argv)
 {
 	t_data	*data;
 	
-	//data = NULL;
-	check_args(argc, argv, data);
-	create_structs(&data);
+	check_args(argc, argv);
+	create_structs(&data, argc, argv);
 	implementation_struct(data, argv[1]);
 	create_fractal(data);
 	mlx_loop(data->init);
